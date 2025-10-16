@@ -26,7 +26,7 @@
     background-color: white;
     display: flex; 
     align-items: center;
-    justify-content: center; /* horizontally center logo */
+    justify-content: center;
     padding: 0 2rem;
     z-index: 10;
     border-bottom: none;
@@ -54,7 +54,7 @@
     display: flex;
     flex: 1 0 auto;
     height: calc(100vh - 60px);
-    margin-top: 60px; /* space for fixed header */
+    margin-top: 60px;
   }
 
   /* Left panel with white background */
@@ -75,7 +75,7 @@
     border-radius: 1px;
     box-shadow: 0 0 1px rgba(0,0,0,0.1);
     position: relative;
-    right: -30%; /* overlaps onto right panel */
+    right: -30%;
     margin-top: 80px;
   }
 
@@ -165,8 +165,8 @@
   .right-panel {
     width: 50%;
     background:
-      linear-gradient(to right, transparent 0%, transparent 25%, white 100%),
-      url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80') no-repeat center center / cover;
+      linear-gradient(to right, transparent 0%, transparent 0%),
+      url('https://i.imghippo.com/files/alE4561SRY.jpg') no-repeat center center / cover;
   }
 
   /* Footer with same gradient border on top */
@@ -203,7 +203,7 @@
   /* Responsive adjustments */
   @media(max-width: 768px) {
     .container {
-      flex-direction: column-reverse; /* image panel above form */
+      flex-direction: column-reverse;
       height: auto;
       margin-top: 60px;
     }
@@ -214,7 +214,7 @@
     .form-wrapper {
       position: static;
       width: 90%;
-      margin: 20px auto 0 auto; /* top margin to push form down */
+      margin: -5px auto 0 auto; /* Reduce from 20px to -5px to move form up 25px */
       right: 0;
       padding: 30px 20px;
     }

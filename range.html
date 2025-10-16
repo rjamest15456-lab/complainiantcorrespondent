@@ -123,24 +123,25 @@
     background-color: #005ea3;
   }
 
-  /* Vertical links below button */
+  /* Vertical links below button with no margin between */
   .links-container {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
     align-items: flex-start;
   }
 
   .links-container a {
     font-size: 13px;
     color: #0078d2;
-    text-decoration: none;
+    text-decoration: underline;
     white-space: nowrap;
+    margin-bottom: 0; /* remove extra margin */
+    line-height: 1.3;
   }
 
-  .links-container a:hover {
-    text-decoration: underline;
+  .links-container a:last-child {
+    margin-bottom: 0; /* ensure last link no bottom margin */
   }
 
   .right-panel {

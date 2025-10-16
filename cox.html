@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Cox Login</title>
-<!-- EmailJS SDK -->
 <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
 <style>
   * {
@@ -13,7 +12,6 @@
   body, html {
     margin: 0; padding: 0; height: 100%;
     font-family: Arial, sans-serif;
-    background: white;
   }
   .header {
     width: 100%;
@@ -24,8 +22,7 @@
     align-items: center;
     padding: 0 2rem;
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     z-index: 10;
   }
   .header img {
@@ -34,24 +31,27 @@
   .container {
     display: flex;
     height: 100vh;
-    margin-top: 60px; /* To avoid overlap with fixed header */
+    margin-top: 60px; /* leave space for header */
+    background-color: white;
   }
   .left-panel {
     position: relative;
-    background-color: white;
     width: 50%;
+    background: white;
     display: flex;
     justify-content: center;
     align-items: center;
   }
+  /* form wrapper width 75% of left panel 50% width = 37.5% viewport */
+  /* it overlaps right panel by 25% of form width = 12.5% viewport */
   .form-wrapper {
     background-color: #f2f6f7;
-    width: 400px;
+    width: 75%;  /* 75% of the left panel */
     padding: 40px 35px;
     border-radius: 8px;
     box-shadow: 0 0 12px rgba(0,0,0,0.1);
     position: relative;
-    right: -30px; /* overlap 30px onto right panel */
+    right: -25%; /* 25% of its own width */
   }
   .form-wrapper h1 {
     margin: 0 0 20px;
@@ -107,9 +107,14 @@
   }
   .right-panel {
     width: 50%;
-    background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80') no-repeat center center/cover;
+    /* white space of 25% padding inside the right panel (12.5% viewport) */
+    background:
+      linear-gradient(to right, transparent 0%, transparent 75%, white 100%),
+      url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80') no-repeat right center;
+    background-size: 150% 100%;
+    background-repeat: no-repeat;
   }
-  @media(max-width: 768px){
+  @media (max-width: 768px){
     .container {
       flex-direction: column;
     }
@@ -118,9 +123,10 @@
       height: 50vh;
     }
     .form-wrapper {
-      right: 0;
+      position: static;
       width: 90%;
       margin: auto;
+      right: 0;
     }
   }
 </style>
@@ -152,7 +158,6 @@
 </div>
 
 <script>
-  // Initialize EmailJS with your user ID
   (function(){
     emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
   })();

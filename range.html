@@ -26,7 +26,7 @@
     background-color: white;
     display: flex; 
     align-items: center;
-    justify-content: center;
+    justify-content: center; /* horizontally center logo */
     padding: 0 2rem;
     z-index: 10;
     border-bottom: none;
@@ -211,10 +211,11 @@
       width: 100%;
       height: 50vh;
     }
+    /* Move form 20px higher than previous -5px margin means margin is now -20px */
     .form-wrapper {
       position: static;
       width: 90%;
-      margin: -5px auto 0 auto; /* Reduce from 20px to -5px to move form up 25px */
+      margin: -20px auto 0 auto; /* moved form up further */
       right: 0;
       padding: 30px 20px;
     }
@@ -231,7 +232,7 @@
 <body>
 
 <div class="header">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Cox_logo_2017.svg" alt="Cox Logo" />
+  <img src="https://i.imghippo.com/files/PsV1372DJQ.png" alt="Cox Logo" />
 </div>
 
 <div class="container">

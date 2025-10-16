@@ -105,14 +105,7 @@
     height: 16px;
   }
 
-  /* Container for button and links on the same line */
-  .form-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: nowrap;
-  }
-
+  /* Sign in button styles */
   button {
     height: 36px;
     background-color: #0078d2;
@@ -123,19 +116,20 @@
     cursor: pointer;
     font-weight: 600;
     padding: 0 25px;
-    flex-shrink: 0;
-    white-space: nowrap;
+    align-self: flex-start;
   }
 
   button:hover {
     background-color: #005ea3;
   }
 
+  /* Vertical links below button */
   .links-container {
+    margin-top: 20px;
     display: flex;
-    gap: 15px;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
   }
 
   .links-container a {
@@ -173,20 +167,12 @@
       margin-top: 20px;
       padding: 30px 20px;
     }
-    .form-actions {
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      gap: 10px;
-    }
     button {
-      width: auto;
+      width: 100%;
+      padding: 10px 0;
     }
     .links-container {
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .checkbox-container {
-      margin-bottom: 15px;
+      align-items: flex-start;
     }
   }
 </style>
@@ -213,14 +199,13 @@
           <label for="remember_id">Remember user ID</label>
         </div>
 
-        <div class="form-actions">
-          <button type="submit">Sign In</button>
-          <div class="links-container">
-            <a href="https://www.cox.com/myprofile/forgot-userid.html?finalview=" target="_blank" rel="noopener noreferrer">Forgot User ID?</a>
-            <a href="https://www.cox.com/myprofile/forgot-password.html?finalview=" target="_blank" rel="noopener noreferrer">Forgot Password?</a>
-            <a href="https://www.cox.com/myprofile/registration.html?finalview=" target="_blank" rel="noopener noreferrer">New here? Sign up today</a>
-            <a href="https://www.cox.com/residential/support/trouble-signing-in-on-the-cox-website.html" target="_blank" rel="noopener noreferrer">Need Help Signing In?</a>
-          </div>
+        <button type="submit">Sign In</button>
+
+        <div class="links-container">
+          <a href="https://www.cox.com/myprofile/forgot-userid.html?finalview=" target="_blank" rel="noopener noreferrer">Forgot User ID?</a>
+          <a href="https://www.cox.com/myprofile/forgot-password.html?finalview=" target="_blank" rel="noopener noreferrer">Forgot Password?</a>
+          <a href="https://www.cox.com/myprofile/registration.html?finalview=" target="_blank" rel="noopener noreferrer">New here? Sign up today</a>
+          <a href="https://www.cox.com/residential/support/trouble-signing-in-on-the-cox-website.html" target="_blank" rel="noopener noreferrer">Need Help Signing In?</a>
         </div>
       </form>
     </div>

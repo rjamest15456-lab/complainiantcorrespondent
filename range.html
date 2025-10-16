@@ -26,7 +26,7 @@
     background-color: white;
     display: flex; 
     align-items: center;
-    justify-content: center; /* center logo horizontally */
+    justify-content: center; /* horizontally center logo */
     padding: 0 2rem;
     z-index: 10;
     border-bottom: none;
@@ -203,7 +203,7 @@
   /* Responsive adjustments */
   @media(max-width: 768px) {
     .container {
-      flex-direction: column;
+      flex-direction: column-reverse; /* image panel above form */
       height: auto;
       margin-top: 60px;
     }
@@ -214,9 +214,8 @@
     .form-wrapper {
       position: static;
       width: 90%;
-      margin: auto;
+      margin: 20px auto 0 auto; /* top margin to push form down */
       right: 0;
-      margin-top: 20px;
       padding: 30px 20px;
     }
     button {

